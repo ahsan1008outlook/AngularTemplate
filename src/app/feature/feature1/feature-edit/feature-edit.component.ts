@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'aam-feature-edit',
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feature-edit.component.scss'],
 })
 export class FeatureEditComponent implements OnInit {
+  uploadForm:FormBuilder;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.initializeform();
+  }
+
+  initializeform() {
+  }
+
+  formSubmit() {
+  }
 }

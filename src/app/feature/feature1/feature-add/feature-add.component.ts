@@ -8,7 +8,7 @@ import { BaseForm } from 'src/app/core/class/base.form';
 })
 export class FeatureAddComponent extends BaseForm implements OnInit {
   constructor(injector: Injector) {
-    super(injector);
+    super();
     // this.param.endpoint = URLz.DEFAULT;
   }
   ngOnInit() {

@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { CanonicalService } from 'src/app/core/service/canonical.service';
+import { HttpServiceParam } from 'src/app/core/interface/common/http-service-param';
+import { HTTPService } from 'src/app/core/service/http.service';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'aam-feature-list',
@@ -9,21 +14,24 @@ import { CanonicalService } from 'src/app/core/service/canonical.service';
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
+  url = 'https://dev-app.starbazaar.pk/admin/api/v1/brands-payment-security?';
+  data: any;
+
   public cookieValue: string
   constructor(
-    private metaTagService: Meta, 
+    private metaTagService: Meta,
     private MetaTitle: Title,
     private canonicalService: CanonicalService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private httpService: HTTPService
+  ) { }
 
-    
-  ) {}
-    
   ngOnInit(): void {
     this.cookieService.set('Test', 'Hello World');
     this.cookieValue = this.cookieService.get('Test');
+    this.getData();
   }
-  setMetaTag(){
+  setMetaTag() {
     this.MetaTitle.setTitle("Feature 1 List");
     this.canonicalService.setCanonicalURL();
     this.metaTagService.addTags([
@@ -40,6 +48,18 @@ export class FeatureListComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.MetaTitle.setTitle('Feature 1 List Destroyed')
-    
+
+  }
+
+  getData(): Observable<any> {
+    return this.httpService.get({ url: this.url, endpoint: '' }).pipe(
+      tap((response) => {
+        this.data = response;
+        console.log('get data', response);
+      }),
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
   }
 }
