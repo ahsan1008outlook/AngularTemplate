@@ -5,6 +5,8 @@ import { FeatureListComponent } from './feature-list/feature-list.component';
 import { FeatureEditComponent } from './feature-edit/feature-edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CookieService } from 'ngx-cookie-service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,6 @@ import { CookieService } from 'ngx-cookie-service';
     FeatureEditComponent,
   ],
   imports: [SharedModule, Feature1RoutingModule],
-  providers: [CookieService]
+  providers: [CookieService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class Feature1Module {}

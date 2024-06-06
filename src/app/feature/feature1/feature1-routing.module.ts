@@ -11,6 +11,11 @@ const routes: Routes = [
     data: {},
   },
   {
+    path: 'add',
+    component: FeatureEditComponent,
+    data: {},
+  },
+  {
     path: 'edit',
     component: FeatureEditComponent,
     data: {},
