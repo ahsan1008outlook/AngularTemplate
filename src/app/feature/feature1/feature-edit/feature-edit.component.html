@@ -1,10 +1,13 @@
-<h2  colspan="1">Add</h2>
+<h2 colspan="1">Add</h2>
 
-<div onsubmit="formSubmit()">
-     <label for="title">Title</label>
-     <input id="title" formControlName="title">
-     <div *ngif="this._fb.value('title').invalid && (his._fb.value('title').dirty || his._fb.value('title').touched)">
-          Title is invalid
-     </div>
-     <button type="submit">Submit</button>
+<div>
+     <form [formGroup]="uploadForm">
+          <label for="title">Title</label>
+          <input id="title" type="text" formControlName="title">
+          <!-- <div
+               *ngif="this._fb.value('title').invalid && (his._fb.value('title').dirty || his._fb.value('title').touched)">
+               Title is invalid
+          </div> -->
+          <button type="submit" (click)="formSubmit()">Submit</button>
+     </form>
 </div>

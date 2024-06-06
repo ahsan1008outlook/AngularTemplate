@@ -18,6 +18,8 @@ export class FeatureListComponent implements OnInit {
   data: any;
 
   public cookieValue: string
+  currentPage: number;
+  pageSize: number;
   constructor(
     private metaTagService: Meta,
     private MetaTitle: Title,
@@ -53,6 +55,27 @@ export class FeatureListComponent implements OnInit {
 
   getData(): Observable<any> {
     return this.httpService.get({ url: this.url, endpoint: '' }).pipe(
+      tap((response) => {
+        this.data = response;
+        this.getPageDate();
+        console.log('get data', response);
+      }),
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.getPageDate();
+  }
+
+  getPageDate() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    const url = 'https://dev-app.starbazaar.pk/admin/api/v1/brands-payment-security?_limit=' + this.pageSize + '&_start=' + startIndex;
+    this.httpService.get({ url, endpoint: '' }).pipe(
       tap((response) => {
         this.data = response;
         console.log('get data', response);

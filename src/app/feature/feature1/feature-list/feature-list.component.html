@@ -3,3 +3,5 @@
 <ul>
     <li *ngfor="let element of data">{{element.title}}</li>
 </ul>
+<button (click)="onPageChange(this.currentPage - 1)">Previous</button>
+<button (click)="onPageChange(this.currentPage + 1)">Next</button>

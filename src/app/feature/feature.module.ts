@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 import { FeatureRoutingModule } from './feature-routing.module';
 import { FeatureComponent } from './feature.component';
@@ -14,7 +15,8 @@ import { UtilsModule } from '../shared/component/utils/utils.module';
     FeatureRoutingModule,
     AngularzModule,
     MatzModule,
-    UtilsModule
+    UtilsModule,
+    ReactiveFormsModule
   ],
 })
 export class FeatureModule {}
