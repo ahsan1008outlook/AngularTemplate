@@ -1,7 +1,15 @@
-<h2 colspan="1">List</h2>
+<table border="1px solid black">
+    <thead>
+        <tr>
+            <td>S No</td>
+            <td>Title</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of data; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+        </tr>
+    </tbody>
 
-<ul>
-    <li *ngfor="let element of data">{{element.title}}</li>
-</ul>
-<button (click)="onPageChange(this.currentPage - 1)">Previous</button>
-<button (click)="onPageChange(this.currentPage + 1)">Next</button>
+</table>

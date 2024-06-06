@@ -9,6 +9,8 @@ import { RootzModule } from './shared/modules/rootz.module';
 import { UtilsModule } from './shared/component/utils/utils.module';
 import { AppInjector } from './core/static/AppInjector';
 import { ThemeModule } from './theme/theme.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ThemeModule } from './theme/theme.module';
     UtilsModule,
     ThemeModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

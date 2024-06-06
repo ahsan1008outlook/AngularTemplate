@@ -14,8 +14,8 @@ import { error } from 'console';
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
-  url = 'https://dev-app.starbazaar.pk/admin/api/v1/brands-payment-security?';
-  data: any;
+  url = '?';
+  data: any = [];
 
   public cookieValue: string
   currentPage: number;
@@ -31,7 +31,11 @@ export class FeatureListComponent implements OnInit {
   ngOnInit(): void {
     this.cookieService.set('Test', 'Hello World');
     this.cookieValue = this.cookieService.get('Test');
-    this.getData();
+    this.getData().subscribe({
+      next: (res) => {
+        this.data = res.data;
+      }
+    })
   }
   setMetaTag() {
     this.MetaTitle.setTitle("Feature 1 List");
@@ -54,12 +58,11 @@ export class FeatureListComponent implements OnInit {
   }
 
   getData(): Observable<any> {
-    return this.httpService.get({ url: this.url, endpoint: '' }).pipe(
-      tap((response) => {
-        this.data = response;
-        this.getPageDate();
-        console.log('get data', response);
-      }),
+    return this.httpService.get({
+      url: 'https://dev-app.starbazaar.pk/admin/api/v1/',
+      endpoint: 'brands-payment-security',
+
+    }).pipe(
       catchError((error) => {
         return throwError(() => error);
       })
@@ -67,15 +70,14 @@ export class FeatureListComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    this.currentPage = page;
     this.getPageDate();
   }
 
   getPageDate() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    const url = 'https://dev-app.starbazaar.pk/admin/api/v1/brands-payment-security?_limit=' + this.pageSize + '&_start=' + startIndex;
-    this.httpService.get({ url, endpoint: '' }).pipe(
+    this.httpService.get({ 
+      url: 'https://dev-app.starbazaar.pk/admin/api/v1', 
+      endpoint: 'brands-payment-security' 
+    }).pipe(
       tap((response) => {
         this.data = response;
         console.log('get data', response);

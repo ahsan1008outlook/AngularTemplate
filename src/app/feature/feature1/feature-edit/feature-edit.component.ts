@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, FormGroup, RequiredValidator, Form, FormControl } from '@angular/forms';
-import { response } from 'express';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { HTTPService } from 'src/app/core/service/http.service';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 
@@ -12,12 +11,8 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 
 })
 export class FeatureEditComponent implements OnInit {
-  uploadForm: any;
-  url = 'https://dev-app.starbazaar.pk/admin/api/v1/brands-payment-security?';
-
-
+  uploadForm: FormGroup;
   constructor(
-    private formBuilder: FormBuilder,
     private httpService: HTTPService,
   ) { }
 
@@ -27,20 +22,27 @@ export class FeatureEditComponent implements OnInit {
 
   initializeform() {
     this.uploadForm = new FormGroup({
-      title: new FormControl(''),
+      title: new FormControl('Ahsan'),
     });
   }
 
   formSubmit() {
-    if (this.uploadForm.value.valid) {
-      this.createData(this.uploadForm.value);
+    if (this.uploadForm.valid) {
+      this.createData(this.uploadForm.value).subscribe({
+        next: (res: any) => {
+          console.log(res)
+        }
+      })
     } else {
       console.error('Invalid form');
     }
   }
 
   createData(data): Observable<any> {
-    return this.httpService.create({ url: this.url, endpoint: '', body: data }).pipe(
+    return this.httpService.create({ 
+      endpoint: 'brands-payment-security', 
+      body: data 
+    }).pipe(
       tap((response) => {
         console.log('upload data', response);
       }),
