@@ -58,11 +58,18 @@ export class FeatureListComponent implements OnInit {
 
   async getList() {
     try {
-      this.featureService.getRecords().subscribe((res: {isSuccess: boolean, data: BrandPayments[]}) => {
+      this.featureService.getRecords()
+      .subscribe((res: {isSuccess: boolean, data: BrandPayments[]}) => {
         console.log(res);
         let temp: BrandPayments[] = []
         res.data.forEach(element => {
-          temp.push({name: element.name, type: element.type, image: element.image, createdOn: new Date(element.createdOn), modifiedOn: new Date(element.modifiedOn)})
+          temp.push({
+            name: element.name, 
+            type: element.type, 
+            image: element.image, 
+            createdOn: new Date(element.createdOn), 
+            modifiedOn: new Date(element.modifiedOn)
+          })
         });
         this.dataSource.data = temp;
       });
