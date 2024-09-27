@@ -5,6 +5,7 @@ import { FeatureComponent } from './feature.component';
 import { AngularzModule } from '../shared/modules/angularz.module';
 import { MatzModule } from '../shared/modules/matz.module';
 import { UtilsModule } from '../shared/component/utils/utils.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { UtilsModule } from '../shared/component/utils/utils.module';
     FeatureRoutingModule,
     AngularzModule,
     MatzModule,
-    UtilsModule
+    UtilsModule,
+    HttpClientModule
   ],
 })
 export class FeatureModule {}

@@ -1,1 +1,48 @@
-    <h2  colspan="1">Heading 1</h2>
+<button (click)="addNewRow()">Add New Row</button>
+
+<table>
+
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Created On</th>
+        <th>Modified By</th>
+        <th>Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data" (click)="editItem(item)" [class.editable]="editedItem === item">
+        <td *ngIf="editedItem !== item">{{ item.name }}</td>
+        <td *ngIf="editedItem === item">
+          <input type="text" [(ngModel)]="item.name" (click)="$event.stopPropagation()">
+        </td>
+        <td *ngIf="editedItem !== item">{{ item.type }}</td>
+        <td *ngIf="editedItem === item">
+          <input type="text" [(ngModel)]="item.type" (click)="$event.stopPropagation()">
+        </td>
+        <td *ngIf="editedItem !== item">
+          <img [src]="item.image" alt="{{ item.name }} Image" width="50">
+        </td>
+        <td *ngIf="editedItem === item">
+          <input type="text" [(ngModel)]="item.image" (click)="$event.stopPropagation()">
+        </td>
+       
+        <td *ngIf="editedItem !== item">{{ item.modifiedBy }}</td>
+        <td *ngIf="editedItem === item">
+          <input type="text" [(ngModel)]="item.modifiedBy" (click)="$event.stopPropagation()">
+        </td>
+       
+        <td>
+            <button (click)="saveItem(item, $event)">{{ editedItem === item ? 'Save' : 'Edit' }}</button>
+        </td>
+      </tr>
+      <tr>
+        <td><input type="text" [(ngModel)]="newItem.name"></td>
+        <td><input type="text" [(ngModel)]="newItem.type"></td>
+        <td><button (click)="addNewRow()">Cancel</button></td>
+        <td><button (click)="saveNewItem()">Save</button></td>
+      </tr>
+    </tbody>
+  </table>
+  

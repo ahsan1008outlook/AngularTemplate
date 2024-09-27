@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { CanonicalService } from 'src/app/core/service/canonical.service';
+import { FeatureService } from '../../feature.service';
 
 @Component({
   selector: 'aam-feature-list',
@@ -9,37 +10,64 @@ import { CanonicalService } from 'src/app/core/service/canonical.service';
   styleUrls: ['./feature-list.component.scss'],
 })
 export class FeatureListComponent implements OnInit {
-  public cookieValue: string
-  constructor(
-    private metaTagService: Meta, 
-    private MetaTitle: Title,
-    private canonicalService: CanonicalService,
-    private cookieService: CookieService
+  data: any[];
+  editedItem: any = null;
+  newItem: any = {
+    name: '',
+    type: '',
+    image: '',
+    createdBy: '',
+    createdOn: '',
+    modifiedBy: '',
+    modifiedOn: '',
+    isActive: '',
+    _id: ''
+  };
 
-    
-  ) {}
-    
+  constructor(private apiService: FeatureService) { }
+
   ngOnInit(): void {
-    this.cookieService.set('Test', 'Hello World');
-    this.cookieValue = this.cookieService.get('Test');
+    this.loadData();
   }
-  setMetaTag(){
-    this.MetaTitle.setTitle("Feature 1 List");
-    this.canonicalService.setCanonicalURL();
-    this.metaTagService.addTags([
-      {
-        name: 'keywords',
-        content: 'Angular SEO Integration, Music CRUD, Angular Universal',
+
+  loadData() {
+    this.apiService.getData().subscribe(
+      (response) => {
+        this.data = response.data;
       },
-      { name: 'robots', content: 'index, follow' },
-      { name: 'author', content: 'Digamber Singh' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'date', content: '2019-10-31', scheme: 'YYYY-MM-DD' },
-      { charset: 'UTF-8' },
-    ]);
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
-  ngOnDestroy(): void {
-    this.MetaTitle.setTitle('Feature 1 List Destroyed')
-    
+
+
+  editItem(item: any) {
+    this.editedItem = this.editedItem === item ? null : item;
+  }
+
+  saveItem(item: any, event: MouseEvent) {
+    console.log('Saving item:', item);
+    this.editedItem = null;
+    event.stopPropagation();
+  }
+  addNewRow() {
+    this.newItem = {
+      name: '',
+      type: '',
+      image: '',
+      createdBy: '',
+      createdOn: '',
+      modifiedBy: '',
+      modifiedOn: '',
+      isActive: '',
+      _id: ''
+    };
+    this.editedItem = null;
+  }
+
+  saveNewItem() {
+    this.data.push(this.newItem);
+    this.newItem = null;
   }
 }
