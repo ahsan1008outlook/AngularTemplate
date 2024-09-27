@@ -1,1 +1,20 @@
-<p>feature-add works!</p>
+<div style="background-color: white; width: 100%;" class="p-3">
+  <form [formGroup]="form" style="max-width: 800px;">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label>User Name</mat-label>
+        <input matInput formControlName="userName" size="5">
+        <mat-error *ngIf="form.controls['userName'].errors?.['required']">
+          User Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="Password" type="password">
+      </mat-form-field>
+      <div class="col-12">
+        <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

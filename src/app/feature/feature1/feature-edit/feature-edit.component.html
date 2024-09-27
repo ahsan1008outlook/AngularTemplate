@@ -1,12 +1,77 @@
-<div>
-     <form [formGroup]="form">
-          <div style="display: flex; flex-direction: column;">
-               <mat-form-field>
-                    <mat-label>Title</mat-label>
-                    <input matInput type="text" formControlName="title" />
-               </mat-form-field>
-     
-               <button mat-stroked-button (click)="onSubmit()" [disabled]="form.invalid">Add</button>
-          </div>
-     </form>
+<div style="background-color: white; width: 100%;" class="p-3">
+  <form [formGroup]="form" style="max-width: 800px;">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-12"> 
+        <mat-label>Group</mat-label>
+        <mat-select  formControlName="group">
+          <mat-option value="1">Group 1</mat-option>
+          <mat-option value="2">Group 2</mat-option>
+        </mat-select>
+          <mat-error *ngIf="form.controls['group'].errors?.['required']">Group is <strong>required</strong></mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Company</mat-label>
+          <input matInput formControlName="company" size="5">
+          <mat-error *ngIf="form.controls['company'].errors?.['required']">Company is <strong>required</strong></mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Person</mat-label>
+          <input matInput formControlName="person">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-6">
+          <mat-label>Designation</mat-label>
+          <input matInput formControlName="designation">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-6">
+          <mat-label>Department</mat-label>
+          <input matInput formControlName="department">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Office Address</mat-label>
+          <input matInput formControlName="officeAddr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-6">
+          <mat-label>Office Phone</mat-label>
+          <input matInput formControlName="officePhone">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-6">
+          <mat-label>Fax</mat-label>
+          <input matInput formControlName="fax">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Residence Address</mat-label>
+          <input matInput formControlName="residenceAddr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-6">
+          <mat-label>Residence Phone</mat-label>
+          <input matInput formControlName="residencePhone">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-6">
+          <mat-label>Mobile</mat-label>
+          <input matInput formControlName="mobile">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Web Site</mat-label>
+          <input matInput formControlName="webSite">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>Textarea</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <div class="col-12">
+          <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+        </div>
+      
+    </div>
+  </form>
 </div>

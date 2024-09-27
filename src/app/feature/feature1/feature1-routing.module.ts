@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FeatureDetailComponent } from './feature-detail/feature-detail.component';
 import { FeatureEditComponent } from './feature-edit/feature-edit.component';
 import { FeatureListComponent } from './feature-list/feature-list.component';
+import { FeatureAddComponent } from './feature-add/feature-add.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    component: FeatureEditComponent,
+    component: FeatureAddComponent,
     data: {},
   },
   {

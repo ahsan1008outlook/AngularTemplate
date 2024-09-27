@@ -7,12 +7,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CookieService } from 'ngx-cookie-service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../auth.interceptor';
+import { FeatureAddComponent } from './feature-add/feature-add.component';
 
 @NgModule({
   declarations: [
     FeatureDetailComponent,
     FeatureListComponent,
     FeatureEditComponent,
+    FeatureAddComponent
   ],
   imports: [SharedModule, Feature1RoutingModule],
   providers: [CookieService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
